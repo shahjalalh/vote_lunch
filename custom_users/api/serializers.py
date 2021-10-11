@@ -24,4 +24,3 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'restaurant',
             'password'
         ]
-        # write_only_fields = ('password',)
