@@ -66,3 +66,17 @@ class CustomUserAPIView(APIView):
                     return Response(user_data, status=status.HTTP_201_CREATED)
         return Response({'error': 'Invalid data'}, 
             status=status.HTTP_400_BAD_REQUEST)
+
+class LogoutAPIView(APIView):
+
+    def post(self, request, format=None):
+
+        try:
+            import pdb;pdb.set_trace()
+            refresh_token = request.data["refresh_token"]
+            # token = RefreshToken(refresh_token)
+            # token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

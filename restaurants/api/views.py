@@ -6,6 +6,7 @@ from restaurants.models import Menu
 from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
 from .serializers import TodayMenuSerializer
+from datetime import datetime, timedelta
 import time
 
 
@@ -119,18 +120,30 @@ class WinnerAPIView(APIView):
                 """
                 menu_data = request.data
 
-                menu = Menu.objects.get(
-                    id = menu_data.get('id')
-                )
-                
-                menu.votes = menu.votes + 1
-                menu.save()
+                today = datetime.today().strftime("%Y-%m-%d")
+                today_winner = Menu.objects.filter(created_date=today).order_by('-votes')
+
+                end_date = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+                start_date = (datetime.today() - timedelta(days=3)).strftime("%Y-%m-%d")
+
+                last_3_winners = Menu.objects.filter(created_date__range=[start_date, end_date]).order_by('-votes')[:3]
+
+                same_winner = False
+
+                for menu in last_3_winners:
+                    if menu.restaurant == today_winner.first().restaurant:
+                        same_winner = True
+                    else:
+                        same_winner = False
+
+                if not same_winner:
+                    today_winner = today_winner.first().restaurant
+                else:
+                    today_winner = today_winner[1].restaurant
 
                 response_data = {
-                    'id': menu.id,
-                    'name': menu.name,
-                    'created_date': menu.created_date,
-                    'votes': menu.votes
+                    'id': today_winner.id,
+                    'name': today_winner.full_name,
                 }
                 return Response(response_data, status=status.HTTP_201_CREATED)
                 
