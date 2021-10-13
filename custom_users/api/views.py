@@ -4,6 +4,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from custom_users.models import CustomUser
+from rest_framework.authtoken.models import Token
 from rest_framework import status
 
 
@@ -72,10 +73,9 @@ class LogoutAPIView(APIView):
     def post(self, request, format=None):
 
         try:
-            import pdb;pdb.set_trace()
-            refresh_token = request.data["refresh_token"]
-            # token = RefreshToken(refresh_token)
-            # token.blacklist()
+            user_token = request.data.get("token", None)
+            token = Token.objects.get(key=user_token)
+            token.delete()
 
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
