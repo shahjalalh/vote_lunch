@@ -8,11 +8,33 @@ from rest_framework.authtoken.models import Token
 from .serializers import TodayMenuSerializer
 from datetime import datetime, timedelta
 import time
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class MenuAPIView(APIView):
+    """Menu API
+    """
 
     def post(self, request, format=None):
+        """Create menu API for the restaurent. Only restaurant can create menu not employee.
+
+        Args:
+            request ([POST]): http://0.0.0.0:8000/api/v1/menu/create
+            Authorization: Token 342b58233e5fdeb2446bcaae60b6e51e953f7a17
+            Form Fields:
+                'name': 'Nasi goreng, Pasta, Rice'
+                'detail': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+                'price': 3.30
+
+        Returns:
+            {
+                "id": 5,
+                "name": "Nasi goreng, Pasta, Rice",
+                "created_date": "2021-10-13"
+            }
+        """
 
         # check the token is for valid user
         try:
@@ -43,14 +65,18 @@ class MenuAPIView(APIView):
                 return Response({'error': 'Not a restaurant.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         except Token.DoesNotExist:
+            logger.error("Invalid token or expire!!")
             return Response({'error': 'Invalid token.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
+            logger.error("Invalid user!!")
             return Response({'error': 'Invalid user.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
     
  
 class TodayMenuListAPIView(generics.ListAPIView):
+    """Get today menu list for all restaurents.
+    """
     serializer_class = TodayMenuSerializer
 
     def get_queryset(self):
@@ -63,8 +89,28 @@ class TodayMenuListAPIView(generics.ListAPIView):
 
 
 class VoteMenuAPIView(APIView):
+    """Vote for particular menu
+    """
 
     def post(self, request, format=None):
+        """Vote for a menu. Only employee can vote for a menu not restaurant.
+
+        Args:
+            request ([POST]): http://0.0.0.0:8000/api/v1/menu/vote
+
+            Authorization: Token 342b58233e5fdeb2446bcaae60b6e51e953f7a17
+
+            Form Fields:
+                'id': 5
+
+        Returns:
+            {
+                "id": 5,
+                "name": "Nasi goreng2",
+                "created_date": "2021-10-13",
+                "votes": 1
+            }
+        """
         # check the token is for valid user
         try:
             token = request.headers.get('Authorization').split(" ")[-1]
@@ -96,19 +142,37 @@ class VoteMenuAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST)
         
         except Token.DoesNotExist:
+            logger.error("Invalid token or expire!!")
             return Response({'error': 'Invalid token.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
+            logger.error("Invalid user!!")
             return Response({'error': 'Invalid user.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         except Menu.DoesNotExist:
+            logger.error("Invalid menu!!")
             return Response({'error': 'Invalid menu.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
 
 
 class WinnerAPIView(APIView):
+    """Get winner data.
+    """
 
     def get(self, request, format=None):
+        """Vote for a menu. Only employee can vote for a menu not restaurant.
+
+        Args:
+            request ([GET]): http://0.0.0.0:8000/api/v1/menu/winner
+
+            Authorization: Token 342b58233e5fdeb2446bcaae60b6e51e953f7a17
+
+        Returns:
+            {
+                "id": 11,
+                "name": "The Cafe Rio"
+            }
+        """
 
         try:
             token = request.headers.get('Authorization').split(" ")[-1]
@@ -136,7 +200,7 @@ class WinnerAPIView(APIView):
                     else:
                         same_winner = False
 
-                if not same_winner:
+                if not same_winner or len(today_winner) == 1:
                     today_winner = today_winner.first().restaurant
                 else:
                     today_winner = today_winner[1].restaurant
@@ -148,12 +212,15 @@ class WinnerAPIView(APIView):
                 return Response(response_data, status=status.HTTP_201_CREATED)
                 
             else:
+                logger.error("Not an employee!!")
                 return Response({'error': 'Not an employee.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         
         except Token.DoesNotExist:
+            logger.error("Invalid token or expire!!")
             return Response({'error': 'Invalid token.'}, 
                 status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
+            logger.error("Invalid user!!")
             return Response({'error': 'Invalid user.'}, 
                 status=status.HTTP_400_BAD_REQUEST)

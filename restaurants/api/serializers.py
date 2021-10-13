@@ -4,6 +4,8 @@ from custom_users.api.serializers import CustomUserSerializer
 
 
 class TodayMenuSerializer(serializers.ModelSerializer):
+    """Menu serializer.
+    """
     restaurant = serializers.SlugRelatedField(
         many=False,
         read_only=True,

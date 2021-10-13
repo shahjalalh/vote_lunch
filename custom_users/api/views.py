@@ -1,4 +1,3 @@
-
 from .serializers import CustomUserSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -6,6 +5,9 @@ from rest_framework.response import Response
 from custom_users.models import CustomUser
 from rest_framework.authtoken.models import Token
 from rest_framework import status
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CustomUserAPIView(APIView):
@@ -13,6 +15,8 @@ class CustomUserAPIView(APIView):
     """
 
     def username_exists(self, username):
+        """Check if the username already exists.
+        """
 
         if CustomUser.objects.filter(username=username).exists():
             return True
@@ -20,8 +24,8 @@ class CustomUserAPIView(APIView):
         return False
 
     def post(self, request, format=None):
-        """Create a employee or a restaurant. Both employee and restaurant 
-           can not contain same data.
+        """A single API to create a employee or a restaurant. 
+        Both employee and restaurant can not contain same data.
 
         Args:
             request ([POST]): http://0.0.0.0:8000/api/v1/users/create
@@ -65,12 +69,26 @@ class CustomUserAPIView(APIView):
                         'username': serializer.data.get('username'),
                     }
                     return Response(user_data, status=status.HTTP_201_CREATED)
+        logger.error("Invalid data!!")
         return Response({'error': 'Invalid data'}, 
             status=status.HTTP_400_BAD_REQUEST)
 
+
 class LogoutAPIView(APIView):
+    """Logout new employee or restaurent.
+    """
 
     def post(self, request, format=None):
+        """Logout the user
+
+        Args:
+            request ([POST]): http://0.0.0.0:8000/api/v1/users/logout
+            Form Fields:
+                'token': '0066f17d9199a0ae62db97a8b3051efc612128a7'
+
+        Returns:
+            Status: 205 Reset Content
+        """
 
         try:
             user_token = request.data.get("token", None)
@@ -79,4 +97,5 @@ class LogoutAPIView(APIView):
 
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
+            logger.error("Bad request!!")
             return Response(status=status.HTTP_400_BAD_REQUEST)
