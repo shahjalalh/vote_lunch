@@ -1,8 +1,10 @@
-from django.contrib import admin
+"""Custom User Urls
+"""
+
 from django.urls import path
-from .views import CustomUserAPIView, LogoutAPIView
 from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework_simplejwt import views as jwt_views
+
+from .views import CustomUserAPIView, LogoutAPIView
 
 urlpatterns = [
     path('register', CustomUserAPIView.as_view(), name='register'),

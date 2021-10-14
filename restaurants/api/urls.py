@@ -1,7 +1,9 @@
-from django.contrib import admin
+"""Restaurant menu urls
+"""
 from django.urls import path
-from .views import MenuAPIView, TodayMenuListAPIView, VoteMenuAPIView, WinnerAPIView
 
+from .views import (MenuAPIView, TodayMenuListAPIView, VoteMenuAPIView,
+                    WinnerAPIView)
 
 urlpatterns = [
     path('create', MenuAPIView.as_view(), name='create'),

@@ -1,14 +1,18 @@
-from django.http import Http404
-from rest_framework.views import APIView
+"""Restaurants Menu API views
+"""
+import logging
+import time
+from datetime import datetime, timedelta
+
+from rest_framework import generics, status
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from custom_users.models import CustomUser
 from restaurants.models import Menu
-from rest_framework import status, generics
-from rest_framework.authtoken.models import Token
+
 from .serializers import TodayMenuSerializer
-from datetime import datetime, timedelta
-import time
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +21,7 @@ class MenuAPIView(APIView):
     """Menu API
     """
 
-    def post(self, request, format=None):
+    def post(self, request):
         """Create menu API for the restaurent. Only restaurant can create menu not employee.
 
         Args:
@@ -25,7 +29,11 @@ class MenuAPIView(APIView):
             Authorization: Token 342b58233e5fdeb2446bcaae60b6e51e953f7a17
             Form Fields:
                 'name': 'Nasi goreng, Pasta, Rice'
-                'detail': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+                'detail': 'Lorem Ipsum is simply dummy text of the printing
+                and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when
+                an unknown printer took a galley of type and scrambled it
+                to make a type specimen book.'
                 'price': 3.30
 
         Returns:
@@ -43,8 +51,8 @@ class MenuAPIView(APIView):
             user = CustomUser.objects.get(id=user_id)
 
             if user.restaurant:
-                """only restaurant can create menu
-                """
+                # only restaurant can create menu
+
                 menu_data = request.data
 
                 created_menu = Menu.objects.create(
@@ -60,20 +68,20 @@ class MenuAPIView(APIView):
                     'created_date': created_menu.created_date,
                 }
                 return Response(menu, status=status.HTTP_201_CREATED)
-                
+
             else:
-                return Response({'error': 'Not a restaurant.'}, 
+                return Response({'error': 'Not a restaurant.'},
                 status=status.HTTP_400_BAD_REQUEST)
         except Token.DoesNotExist:
             logger.error("Invalid token or expire!!")
-            return Response({'error': 'Invalid token.'}, 
+            return Response({'error': 'Invalid token.'},
                 status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
             logger.error("Invalid user!!")
-            return Response({'error': 'Invalid user.'}, 
+            return Response({'error': 'Invalid user.'},
                 status=status.HTTP_400_BAD_REQUEST)
-    
- 
+
+
 class TodayMenuListAPIView(generics.ListAPIView):
     """Get today menu list for all restaurents.
     """
@@ -92,7 +100,7 @@ class VoteMenuAPIView(APIView):
     """Vote for particular menu
     """
 
-    def post(self, request, format=None):
+    def post(self, request):
         """Vote for a menu. Only employee can vote for a menu not restaurant.
 
         Args:
@@ -118,14 +126,14 @@ class VoteMenuAPIView(APIView):
             user = CustomUser.objects.get(id=user_id)
 
             if user.employee:
-                """only employee can vote on menu
-                """
+                # only employee can vote on menu
+                
                 menu_data = request.data
 
                 menu = Menu.objects.get(
                     id = menu_data.get('id')
                 )
-                
+
                 menu.votes = menu.votes + 1
                 menu.save()
 
@@ -136,22 +144,22 @@ class VoteMenuAPIView(APIView):
                     'votes': menu.votes
                 }
                 return Response(response_data, status=status.HTTP_201_CREATED)
-                
+
             else:
-                return Response({'error': 'Not an employee.'}, 
+                return Response({'error': 'Not an employee.'},
                 status=status.HTTP_400_BAD_REQUEST)
-        
+
         except Token.DoesNotExist:
             logger.error("Invalid token or expire!!")
-            return Response({'error': 'Invalid token.'}, 
+            return Response({'error': 'Invalid token.'},
                 status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
             logger.error("Invalid user!!")
-            return Response({'error': 'Invalid user.'}, 
+            return Response({'error': 'Invalid user.'},
                 status=status.HTTP_400_BAD_REQUEST)
         except Menu.DoesNotExist:
             logger.error("Invalid menu!!")
-            return Response({'error': 'Invalid menu.'}, 
+            return Response({'error': 'Invalid menu.'},
                 status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -159,7 +167,7 @@ class WinnerAPIView(APIView):
     """Get winner data.
     """
 
-    def get(self, request, format=None):
+    def get(self, request):
         """Vote for a menu. Only employee can vote for a menu not restaurant.
 
         Args:
@@ -180,18 +188,22 @@ class WinnerAPIView(APIView):
             user = CustomUser.objects.get(id=user_id)
 
             if user.employee:
-                """only employee can see the winner restaurant
-                """
-                menu_data = request.data
+                # only employee can see the winner restaurant
 
                 today = datetime.today().strftime("%Y-%m-%d")
-                today_winner = Menu.objects.filter(created_date=today).order_by('-votes')
+                today_winner = Menu.objects.filter(
+                    created_date=today
+                    ).order_by('-votes')
 
                 if today_winner:
-                    end_date = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-                    start_date = (datetime.today() - timedelta(days=3)).strftime("%Y-%m-%d")
+                    end_date = (datetime.today() -
+                        timedelta(days=1)).strftime("%Y-%m-%d")
+                    start_date = (datetime.today() -
+                        timedelta(days=3)).strftime("%Y-%m-%d")
 
-                    last_3_winners = Menu.objects.filter(created_date__range=[start_date, end_date]).order_by('-votes')[:3]
+                    last_3_winners = Menu.objects.filter(
+                        created_date__range=[start_date, end_date]
+                        ).order_by('-votes')[:3]
 
                     same_winner = False
 
@@ -215,17 +227,18 @@ class WinnerAPIView(APIView):
                         'id': None
                     }
                 return Response(response_data, status=status.HTTP_201_CREATED)
-                
+
             else:
                 logger.error("Not an employee!!")
-                return Response({'error': 'Not an employee.'}, 
+                return Response({'error': 'Not an employee.'},
                 status=status.HTTP_400_BAD_REQUEST)
-        
+
         except Token.DoesNotExist:
             logger.error("Invalid token or expire!!")
-            return Response({'error': 'Invalid token.'}, 
+            return Response({'error': 'Invalid token.'},
                 status=status.HTTP_400_BAD_REQUEST)
+
         except CustomUser.DoesNotExist:
             logger.error("Invalid user!!")
-            return Response({'error': 'Invalid user.'}, 
+            return Response({'error': 'Invalid user.'},
                 status=status.HTTP_400_BAD_REQUEST)

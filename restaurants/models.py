@@ -1,20 +1,25 @@
+"""Restaurant Model
+"""
 from django.db import models
 from django.utils.translation import gettext as _
+
 from custom_users.models import CustomUser
 
 # Create your models here.
 
 class Menu(models.Model):
+    """Restaurant Model Fields
+    """
     name = models.CharField(verbose_name=_("Name"), max_length=255)
     restaurant = models.ForeignKey(
-        CustomUser, 
-        on_delete=models.CASCADE, 
+        CustomUser,
+        on_delete=models.CASCADE,
         verbose_name=_("Restaurant")
         )
     detail = models.TextField(verbose_name=_("Detail"), null=True, blank=True)
     price = models.DecimalField(
-        verbose_name=_("Price"), 
-        max_digits=19, 
+        verbose_name=_("Price"),
+        max_digits=19,
         decimal_places=2
         )
     votes = models.IntegerField(verbose_name=_("Votes"), default=0)

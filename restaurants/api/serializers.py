@@ -1,6 +1,8 @@
+"""Restaurant menu serializer
+"""
 from rest_framework import serializers
+
 from restaurants.models import Menu
-from custom_users.api.serializers import CustomUserSerializer
 
 
 class TodayMenuSerializer(serializers.ModelSerializer):

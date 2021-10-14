@@ -1,5 +1,9 @@
+"""Custom User Serializer
+"""
 from rest_framework import serializers
+
 from custom_users.models import CustomUser
+
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """Custom User Serializer
@@ -8,7 +12,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create user with password in ModelSerializer.
         """
-        
+
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
         user.save()

@@ -1,11 +1,15 @@
-from .serializers import CustomUserSerializer
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from custom_users.models import CustomUser
-from rest_framework.authtoken.models import Token
-from rest_framework import status
+"""Custom User API views
+"""
 import logging
+
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from custom_users.models import CustomUser
+
+from .serializers import CustomUserSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -18,13 +22,10 @@ class CustomUserAPIView(APIView):
         """Check if the username already exists.
         """
 
-        if CustomUser.objects.filter(username=username).exists():
-            return True
-    
-        return False
+        return CustomUser.objects.filter(username=username).exists()
 
-    def post(self, request, format=None):
-        """A single API to create a employee or a restaurant. 
+    def post(self, request):
+        """A single API to create a employee or a restaurant.
         Both employee and restaurant can not contain same data.
 
         Args:
@@ -55,12 +56,12 @@ class CustomUserAPIView(APIView):
         if user_data.get('employee') != user_data.get('restaurant'):
 
             if self.username_exists(user_data.get('username')):
-                return Response({'error': 'Username is already in use'}, 
+                return Response({'error': 'Username is already in use'},
                 status=status.HTTP_400_BAD_REQUEST)
             else:
 
                 serializer = CustomUserSerializer(data=request.data)
-                
+
                 if serializer.is_valid():
                     serializer.save()
 
@@ -70,7 +71,7 @@ class CustomUserAPIView(APIView):
                     }
                     return Response(user_data, status=status.HTTP_201_CREATED)
         logger.error("Invalid data!!")
-        return Response({'error': 'Invalid data'}, 
+        return Response({'error': 'Invalid data'},
             status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -78,7 +79,7 @@ class LogoutAPIView(APIView):
     """Logout new employee or restaurent.
     """
 
-    def post(self, request, format=None):
+    def post(self, request):
         """Logout the user
 
         Args:
@@ -96,6 +97,6 @@ class LogoutAPIView(APIView):
             token.delete()
 
             return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
+        except Token.DoesNotExist:
             logger.error("Bad request!!")
             return Response(status=status.HTTP_400_BAD_REQUEST)
