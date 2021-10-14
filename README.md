@@ -1,5 +1,11 @@
 # Vote for Lunch
 
+Python: 3.8.x (recommended)
+
+In Dockerfile ```3.8.12-slim-buster``` is used for deployment.
+
+> ```PyLint```, ```iSort``` is used as well as **PEP8** rules are followed.
+
 ## Project Setup in Ubuntu 
 
 ```
@@ -166,3 +172,5 @@ Returns:
         "name": "The Cafe Rio"
     }
 ```
+
+> For time limitation, only few test cases is written.
