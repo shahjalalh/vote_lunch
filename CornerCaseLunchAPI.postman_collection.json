@@ -1,0 +1,927 @@
+{
+	"info": {
+		"_postman_id": "64b31113-2414-4643-ac6c-29e564d82209",
+		"name": "CornerCaseLunchAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://0.0.0.0:8000/api/v1/users/register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "john",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "Doe",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "john.doe@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "super-secret-pass",
+							"type": "text"
+						},
+						{
+							"key": "employee",
+							"value": "True",
+							"type": "text"
+						},
+						{
+							"key": "restaurant",
+							"value": "False",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/users/register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "john",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john.doe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "super-secret-pass",
+									"type": "text"
+								},
+								{
+									"key": "employee",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "restaurant",
+									"value": "False",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/users/register",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:00:12 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 13,\n    \"username\": \"john\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/users/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "0066f17d9199a0ae62db97a8b3051efc612128a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "john",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "super-secret-pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/users/login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "john",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "super-secret-pass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:02:02 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"647574ba8c7a504d8990fbc34c8d0a3d7973d271\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/menu/create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "85b76d20ae0f87bcc7b53eaec0fb15a77aa0362d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Nasi goreng, Pasta, Steak",
+							"type": "text"
+						},
+						{
+							"key": "detail",
+							"value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "13.30",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/menu/create",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/menu/create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Nasi goreng, Pasta, Steak",
+									"type": "text"
+								},
+								{
+									"key": "detail",
+									"value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "13.30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/menu/create",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"menu",
+								"create"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:09:20 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 6,\n    \"name\": \"Nasi goreng, Pasta, Steak\",\n    \"created_date\": \"2021-10-14\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/menu/today",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/menu/today",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"today"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/menu/today",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/menu/today",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"menu",
+								"today"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:10:02 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "372"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 6,\n        \"name\": \"Nasi goreng, Pasta, Steak\",\n        \"restaurant\": \"Handi Mama\",\n        \"detail\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\",\n        \"price\": \"13.30\",\n        \"created_date\": \"2021-10-14\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/menu/vote",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "647574ba8c7a504d8990fbc34c8d0a3d7973d271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "6",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/menu/vote",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"vote"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/menu/vote",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "6",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/menu/vote",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"menu",
+								"vote"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:11:06 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "81"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 6,\n    \"name\": \"Nasi goreng, Pasta, Steak\",\n    \"created_date\": \"2021-10-14\",\n    \"votes\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/menu/winner",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "647574ba8c7a504d8990fbc34c8d0a3d7973d271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/menu/winner",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"winner"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/menu/winner",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/menu/winner",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"menu",
+								"winner"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:11:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 14,\n    \"name\": \"Handi Mama\"\n}"
+				}
+			]
+		},
+		{
+			"name": "http://0.0.0.0:8000/api/v1/users/logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "647574ba8c7a504d8990fbc34c8d0a3d7973d271",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/users/logout",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://0.0.0.0:8000/api/v1/users/logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "647574ba8c7a504d8990fbc34c8d0a3d7973d271",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/api/v1/users/logout",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"status": "Reset Content",
+					"code": 205,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 14 Oct 2021 10:14:43 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.12"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
