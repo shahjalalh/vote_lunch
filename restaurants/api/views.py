@@ -88,9 +88,29 @@ class TodayMenuListAPIView(generics.ListAPIView):
     serializer_class = TodayMenuSerializer
 
     def get_queryset(self):
-        """
-        This view should return a list of all the menu
-        for current date.
+        """This view should return a list of all the menu
+        for current date. This API does not require Authorization token.
+        Have done it intensionally.
+
+        Args:
+            request ([GET]): http://0.0.0.0:8000/api/v1/menu/today
+
+        Returns:
+            [
+                {
+                    "id": 6,
+                    "name": "Nasi goreng, Pasta, Steak",
+                    "restaurant": "Handi Mama",
+                    "detail": "Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry. Lorem Ipsum has
+                    been the industry's standard dummy text ever since
+                    the 1500s, when an unknown printer took a galley of
+                    type and scrambled it to make a type specimen book.",
+                    "price": "13.30",
+                    "created_date": "2021-10-14"
+                }
+            ]
+
         """
         today = time.strftime("%Y-%m-%d")
         return Menu.objects.filter(created_date=today)
@@ -127,7 +147,7 @@ class VoteMenuAPIView(APIView):
 
             if user.employee:
                 # only employee can vote on menu
-                
+
                 menu_data = request.data
 
                 menu = Menu.objects.get(
