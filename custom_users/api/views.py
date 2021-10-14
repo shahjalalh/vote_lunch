@@ -28,7 +28,7 @@ class CustomUserAPIView(APIView):
         Both employee and restaurant can not contain same data.
 
         Args:
-            request ([POST]): http://0.0.0.0:8000/api/v1/users/create
+            request ([POST]): http://0.0.0.0:8000/api/v1/users/register
             Form Fields:
                 'username': 'john'
                 'first_name': 'John'

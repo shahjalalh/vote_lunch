@@ -187,28 +187,33 @@ class WinnerAPIView(APIView):
                 today = datetime.today().strftime("%Y-%m-%d")
                 today_winner = Menu.objects.filter(created_date=today).order_by('-votes')
 
-                end_date = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-                start_date = (datetime.today() - timedelta(days=3)).strftime("%Y-%m-%d")
+                if today_winner:
+                    end_date = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+                    start_date = (datetime.today() - timedelta(days=3)).strftime("%Y-%m-%d")
 
-                last_3_winners = Menu.objects.filter(created_date__range=[start_date, end_date]).order_by('-votes')[:3]
+                    last_3_winners = Menu.objects.filter(created_date__range=[start_date, end_date]).order_by('-votes')[:3]
 
-                same_winner = False
+                    same_winner = False
 
-                for menu in last_3_winners:
-                    if menu.restaurant == today_winner.first().restaurant:
-                        same_winner = True
+                    for menu in last_3_winners:
+                        if menu.restaurant == today_winner.first().restaurant:
+                            same_winner = True
+                        else:
+                            same_winner = False
+
+                    if not same_winner or len(today_winner) == 1:
+                        today_winner = today_winner.first().restaurant
                     else:
-                        same_winner = False
+                        today_winner = today_winner[1].restaurant
 
-                if not same_winner or len(today_winner) == 1:
-                    today_winner = today_winner.first().restaurant
+                    response_data = {
+                        'id': today_winner.id,
+                        'name': today_winner.full_name,
+                    }
                 else:
-                    today_winner = today_winner[1].restaurant
-
-                response_data = {
-                    'id': today_winner.id,
-                    'name': today_winner.full_name,
-                }
+                    response_data = {
+                        'id': None
+                    }
                 return Response(response_data, status=status.HTTP_201_CREATED)
                 
             else:
