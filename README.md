@@ -173,4 +173,4 @@ Returns:
     }
 ```
 
-> For time limitation, only few test cases is written.
+> For time limitation, only few test cases are written.
